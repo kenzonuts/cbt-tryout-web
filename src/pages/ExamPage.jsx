@@ -30,10 +30,11 @@ export default function ExamPage() {
 
   const locked = status === 'blocked' || status === 'warning'
 
-  useExamGuard({ enabled: Boolean(user) })
+  useExamGuard({ enabled: Boolean(user) && status === 'in_exam' })
 
   useEffect(() => {
     if (!user) return
+    // Refresh saat blocked/warning → jangan buka lagi
     if (status === 'blocked' || status === 'warning') return
     if (status === 'logged_in' || status === 'idle') {
       setStatus('in_exam')
@@ -64,35 +65,21 @@ export default function ExamPage() {
     if (index < total - 1) setCurrentQuestionIndex(index + 1)
   }
 
-  if (!user) {
-    return (
-      <main className="page">
-        <div className="panel">
-          <p className="eyebrow">CBT Tryout</p>
-          <h1>Halaman Ujian</h1>
-          <p className="form-error">
-            Belum login. <Link to="/login">Masuk dulu</Link>
-          </p>
-          <nav className="nav-links">
-            <Link to="/admin">Admin</Link>
-          </nav>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <main className="page page--exam">
       <ExamHeader name={user.name ?? user.username} endsAt={examEndsAt} />
 
       {status === 'blocked' && (
         <div className="banner banner--blocked" role="alert">
-          <strong>Tes dihentikan / diblokir.</strong> Soal terkunci.
-          Minta admin membuka akses di <Link to="/admin">halaman Admin</Link>.
+          <strong>Tes dihentikan.</strong> Soal terkunci setelah refresh pun
+          tetap blocked. Buka lagi lewat{' '}
+          <Link to="/admin">Admin → Buka Akses</Link>.
         </div>
       )}
 
-      <div className={`exam-layout${status === 'blocked' ? ' exam-layout--locked' : ''}`}>
+      <div
+        className={`exam-layout${status === 'blocked' ? ' exam-layout--locked' : ''}`}
+      >
         <QuestionNav
           questions={dummyQuestions}
           answers={answers}
@@ -132,7 +119,7 @@ export default function ExamPage() {
 
           {status === 'in_exam' && (
             <p className="hint">
-              Uji cepat: pindah tab, tekan Esc, atau{' '}
+              Uji: pindah tab · Esc ·{' '}
               <button
                 type="button"
                 className="linkish"
@@ -140,7 +127,6 @@ export default function ExamPage() {
               >
                 simulasi warning
               </button>
-              .
             </p>
           )}
         </div>

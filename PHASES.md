@@ -88,15 +88,15 @@ Tujuan: buka blokir peserta untuk demo.
 
 **Selesai jika:** setelah blokir, admin unlock, peserta lanjut.
 
-## Fase F — Poles & siap push
+## Fase F — Poles & siap push ✅
 
 Tujuan: rapi, bisa di-demo orang lain.
 
-- [ ] Poles UI (spacing, tipografi, modal)
-- [ ] Guard route: belum login tidak masuk `/ujian`
-- [ ] Refresh saat blocked → tetap terkunci
-- [ ] Lengkapi README (cara uji coba)
-- [ ] Siap push ke GitHub `cbt-tryout-web`
+- [x] Poles UI (spacing, tipografi, modal)
+- [x] Guard route: belum login tidak masuk `/ujian`
+- [x] Refresh saat blocked → tetap terkunci
+- [x] Lengkapi README (cara uji coba)
+- [x] Siap push ke GitHub `cbt-tryout-web`
 
 **Selesai jika:** demo berjalan tanpa penjelasan panjang.
 

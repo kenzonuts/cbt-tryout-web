@@ -1,14 +1,17 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useExam } from '../context/ExamContext'
 import { DUMMY_CREDENTIALS } from '../data/dummyQuestions'
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { setUser, status, user } = useExam()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
+  const fromGuard = location.state?.from === 'ujian'
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -40,6 +43,12 @@ export default function LoginPage() {
         <p className="eyebrow">CBT Tryout</p>
         <h1>Login</h1>
         <p className="muted">Masuk dengan akun contoh untuk uji coba.</p>
+
+        {fromGuard && !user && (
+          <p className="form-error" role="status">
+            Masuk dulu untuk membuka halaman ujian.
+          </p>
+        )}
 
         {user && (
           <p className="hint">

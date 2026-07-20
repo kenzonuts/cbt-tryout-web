@@ -10,11 +10,28 @@ const defaultState = {
   warningReason: null,
 }
 
+/** Pastikan warning yang sudah habis → blocked (termasuk setelah refresh). */
+export function normalizeState(raw) {
+  const state = { ...defaultState, ...(raw ?? {}) }
+
+  if (state.status === 'warning') {
+    const expired =
+      !state.warningEndsAt || Date.now() >= Number(state.warningEndsAt)
+    if (expired) {
+      state.status = 'blocked'
+      state.warningEndsAt = null
+      state.warningReason = null
+    }
+  }
+
+  return state
+}
+
 export function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return { ...defaultState }
-    return { ...defaultState, ...JSON.parse(raw) }
+    return normalizeState(JSON.parse(raw))
   } catch {
     return { ...defaultState }
   }

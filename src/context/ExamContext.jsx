@@ -4,6 +4,7 @@ import {
   clearState,
   defaultState,
   loadState,
+  normalizeState,
   saveState,
 } from '../utils/storage'
 
@@ -23,7 +24,7 @@ export function ExamProvider({ children }) {
     function onStorage(e) {
       if (e.key !== STORAGE_KEY || !e.newValue) return
       try {
-        setState({ ...defaultState, ...JSON.parse(e.newValue) })
+        setState(normalizeState(JSON.parse(e.newValue)))
       } catch {
         // ignore
       }
