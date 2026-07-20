@@ -1,1 +1,176 @@
 # cbt-tryout-web
+
+
+# Phase Plan — cbt-tryout-web
+Prototype FE-only (Vite + React) untuk uji deteksi keluar fokus peserta ujian CBT.
+**Stack:** Vite + React  
+**Penyimpanan:** `localStorage` (belum ada backend)  
+**Repo:** `cbt-tryout-web`
+---
+## Ringkasan keputusan
+| Item | Keputusan |
+|------|-----------|
+| Deteksi | `visibilitychange` + Esc + offline |
+| Alur warning | Pop-up 15 detik → Tetap Lanjut / Hentikan Tes |
+| Admin | Mini halaman Buka Akses |
+| Belum dibuat | API, DB, Excel, 180 soal, survey, role IT |
+---
+## Status ujian
+```text
+idle → logged_in → in_exam → warning → blocked
+                              ↑               │
+                              └── unlocked ───┘
+Fase A — Scaffold & fondasi (sekarang)
+Tujuan: project jalan, struktur rapi, route siap.
+
+
+ Buat project Vite + React
+
+ Pasang router: /login, /ujian, /admin
+
+ Setup styling dasar (CSS variables, layout)
+
+ Buat src/utils/storage.js
+
+ Buat src/context/ExamContext.jsx
+
+ Siapkan struktur folder (components, hooks, pages, data)
+
+ README cara menjalankan
+Selesai jika: app jalan, 3 route bisa dibuka.
+
+Fase B — Login & data dummy
+Tujuan: masuk sistem dengan akun contoh.
+
+
+ Halaman LoginPage
+
+ Akun dummy: peserta / 1234
+
+ Redirect ke /ujian setelah login
+
+ Siapkan 5 soal di src/data/dummyQuestions.js
+Selesai jika: login berhasil / gagal ditolak dengan benar.
+
+Fase C — Halaman ujian (tanpa guard)
+Tujuan: UI ujian jalan dulu, baru ditambah deteksi.
+
+
+ ExamHeader (nama + timer sederhana)
+
+ QuestionCard (soal + opsi A–E)
+
+ Navigasi Sebelumnya / Selanjutnya
+
+ QuestionNav (nomor soal; hijau = terjawab)
+
+ Simpan jawaban ke Context + localStorage
+Selesai jika: bisa jawab & pindah soal; refresh jawaban tetap ada.
+
+Fase D — Deteksi kecurangan (inti)
+Tujuan: uji perilaku “peserta keluar”.
+
+
+ Hook useExamGuard
+
+ Trigger: visibilitychange, Esc, offline
+
+ WarningModal countdown 15 detik
+
+ Tetap Lanjut → kembali in_exam
+
+ Hentikan Tes / 15 detik habis → blocked
+
+ Saat blocked: soal terkunci
+Selesai jika: skenario laptop & HP lolos checklist uji.
+
+Fase E — Mini admin
+Tujuan: buka blokir peserta untuk demo.
+
+
+ Halaman /admin
+
+ Tampilkan status dari localStorage
+
+ Tombol Buka Akses → status in_exam
+
+ Link cepat Login ↔ Admin
+Selesai jika: setelah blokir, admin unlock, peserta lanjut.
+
+Fase F — Poles & siap push
+Tujuan: rapi, bisa di-demo orang lain.
+
+
+ Poles UI (spacing, tipografi, modal)
+
+ Guard route: belum login tidak masuk /ujian
+
+ Refresh saat blocked → tetap terkunci
+
+ Lengkapi README (cara uji coba)
+
+ Siap push ke GitHub cbt-tryout-web
+Selesai jika: demo berjalan tanpa penjelasan panjang.
+
+Checklist uji coba
+Laptop
+
+ Pindah tab → warning 15 detik
+
+ Klik Tetap Lanjut → bisa lanjut
+
+ Biarkan 15 detik habis → blocked
+
+ Tekan Esc → warning
+
+ Refresh saat blocked → tetap locked
+Mobile
+
+ Ganti app / Home → warning
+
+ Tetap Lanjut vs habis waktu
+Admin
+
+ Lihat status blocked
+
+ Buka Akses → ujian aktif lagi
+Offline (opsional)
+
+ Matikan WiFi → warning
+Struktur folder target
+cbt-tryout-web/
+├── src/
+│   ├── components/
+│   │   ├── ExamHeader.jsx
+│   │   ├── QuestionCard.jsx
+│   │   ├── QuestionNav.jsx
+│   │   └── WarningModal.jsx
+│   ├── hooks/
+│   │   └── useExamGuard.js
+│   ├── pages/
+│   │   ├── LoginPage.jsx
+│   │   ├── ExamPage.jsx
+│   │   └── AdminPage.jsx
+│   ├── data/
+│   │   └── dummyQuestions.js
+│   ├── context/
+│   │   └── ExamContext.jsx
+│   ├── utils/
+│   │   └── storage.js
+│   ├── styles/
+│   ├── App.jsx
+│   └── main.jsx
+├── PHASES.md
+└── README.md
+Urutan pengerjaan file
+storage.js + ExamContext.jsx
+LoginPage.jsx
+dummyQuestions.js + ExamPage.jsx + komponen soal
+useExamGuard.js + WarningModal.jsx
+AdminPage.jsx
+Poles UI + README
+Setelah MVP (nanti)
+Backend (auth + status blokir di server)
+Realtime pantau admin
+Bank soal / paket / Excel
+Survey & hasil nilai
