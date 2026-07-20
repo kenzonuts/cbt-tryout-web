@@ -5,6 +5,9 @@ const defaultState = {
   user: null,
   answers: {},
   currentQuestionIndex: 0,
+  examEndsAt: null,
+  warningEndsAt: null,
+  warningReason: null,
 }
 
 export function loadState() {

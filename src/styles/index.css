@@ -193,3 +193,286 @@ code {
   font-size: 0.875rem;
   color: var(--muted);
 }
+
+.page--exam {
+  max-width: 800px;
+}
+
+.exam-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space);
+  margin-bottom: calc(var(--space) * 1.25);
+}
+
+.exam-header__title {
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.exam-timer {
+  display: grid;
+  justify-items: end;
+  gap: 0.15rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+}
+
+.exam-timer__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.exam-timer__value {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.exam-timer--urgent .exam-timer__value {
+  color: #f07178;
+}
+
+.exam-layout {
+  display: grid;
+  gap: 1rem;
+}
+
+.exam-main {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.question-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.qnav-btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.qnav-btn:hover {
+  border-color: var(--accent);
+}
+
+.qnav-btn--answered {
+  background: #1f6f4a;
+  border-color: #2a8f5f;
+  color: #fff;
+}
+
+.qnav-btn--active {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.question-card__meta {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.question-card__text {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.options {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #0f1419;
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: var(--accent);
+}
+
+.option--selected {
+  border-color: var(--accent);
+  background: #152338;
+}
+
+.option--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option__key {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: var(--border);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.option--selected .option__key {
+  background: var(--accent);
+  color: #fff;
+}
+
+.option__label {
+  padding-top: 0.1rem;
+}
+
+.exam-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.exam-actions .btn {
+  margin-top: 0;
+}
+
+.exam-actions__pos {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: #152338;
+  border-color: var(--accent);
+}
+
+.exam-footer-nav {
+  margin-top: 1.25rem;
+  align-items: center;
+}
+
+.banner {
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.banner--blocked {
+  background: #2a1518;
+  border-color: #6b2a32;
+  color: #f5c2c7;
+}
+
+.banner--blocked a {
+  color: #ffb4bc;
+}
+
+.exam-layout--locked {
+  opacity: 0.85;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(8, 12, 18, 0.72);
+}
+
+.modal {
+  width: min(100%, 420px);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.modal h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.modal-count {
+  color: #f0c674;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.modal-actions .btn {
+  margin-top: 0;
+  flex: 1 1 auto;
+}
+
+.btn--danger {
+  background: #c44b55;
+}
+
+.btn--danger:hover {
+  background: #d45a64;
+}
+
+.linkish {
+  appearance: none;
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.linkish:hover {
+  color: var(--accent-hover);
+}

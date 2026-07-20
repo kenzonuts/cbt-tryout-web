@@ -52,28 +52,28 @@ Tujuan: masuk sistem dengan akun contoh.
 
 **Selesai jika:** login berhasil / gagal ditolak dengan benar.
 
-## Fase C — Halaman ujian (tanpa guard)
+## Fase C — Halaman ujian (tanpa guard) ✅
 
 Tujuan: UI ujian jalan dulu, baru ditambah deteksi.
 
-- [ ] ExamHeader (nama + timer sederhana)
-- [ ] QuestionCard (soal + opsi A–E)
-- [ ] Navigasi Sebelumnya / Selanjutnya
-- [ ] QuestionNav (nomor soal; hijau = terjawab)
-- [ ] Simpan jawaban ke Context + localStorage
+- [x] ExamHeader (nama + timer sederhana)
+- [x] QuestionCard (soal + opsi A–E)
+- [x] Navigasi Sebelumnya / Selanjutnya
+- [x] QuestionNav (nomor soal; hijau = terjawab)
+- [x] Simpan jawaban ke Context + localStorage
 
 **Selesai jika:** bisa jawab & pindah soal; refresh jawaban tetap ada.
 
-## Fase D — Deteksi kecurangan (inti)
+## Fase D — Deteksi kecurangan (inti) ✅
 
 Tujuan: uji perilaku “peserta keluar”.
 
-- [ ] Hook `useExamGuard`
-- [ ] Trigger: `visibilitychange`, Esc, offline
-- [ ] WarningModal countdown 15 detik
-- [ ] Tetap Lanjut → kembali `in_exam`
-- [ ] Hentikan Tes / 15 detik habis → `blocked`
-- [ ] Saat blocked: soal terkunci
+- [x] Hook `useExamGuard`
+- [x] Trigger: `visibilitychange`, Esc, offline
+- [x] WarningModal countdown 15 detik
+- [x] Tetap Lanjut → kembali `in_exam`
+- [x] Hentikan Tes / 15 detik habis → `blocked`
+- [x] Saat blocked: soal terkunci
 
 **Selesai jika:** skenario laptop & HP lolos checklist uji.
 

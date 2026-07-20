@@ -27,8 +27,8 @@ Buka URL yang muncul di terminal (biasanya `http://localhost:5173`).
 |------|-----|--------|
 | A | Scaffold, router, storage, ExamContext | ✅ |
 | B | Login + soal dummy | ✅ |
-| C | UI ujian | ⏳ |
-| D | Deteksi fokus (`useExamGuard`) | ⏳ |
+| C | UI ujian | ✅ |
+| D | Deteksi fokus (`useExamGuard`) | ✅ |
 | E | Mini admin unlock | ⏳ |
 | F | Poles + README uji coba | ⏳ |
 
