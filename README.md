@@ -29,7 +29,7 @@ Buka URL yang muncul di terminal (biasanya `http://localhost:5173`).
 | B | Login + soal dummy | ✅ |
 | C | UI ujian | ✅ |
 | D | Deteksi fokus (`useExamGuard`) | ✅ |
-| E | Mini admin unlock | ⏳ |
+| E | Mini admin unlock | ✅ |
 | F | Poles + README uji coba | ⏳ |
 
 Detail fase ada di [`PHASES.md`](./PHASES.md).

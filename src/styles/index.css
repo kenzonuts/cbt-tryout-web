@@ -476,3 +476,54 @@ code {
 .linkish:hover {
   color: var(--accent-hover);
 }
+
+.admin-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-meta {
+  margin: 0;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.admin-actions .btn {
+  margin-top: 0;
+}
+
+.admin-quick {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border);
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+}
+
+.banner--warn {
+  background: #2a2410;
+  border-color: #6b5a20;
+  color: #f0d78c;
+}
+
+.status-pill {
+  padding: 0.15em 0.45em;
+}
+
+.status-pill--blocked {
+  background: #3a1518;
+  color: #f5c2c7;
+}
+
+.status-pill--warning {
+  background: #3a3010;
+  color: #f0d78c;
+}
+
+.status-pill--in_exam {
+  background: #123528;
+  color: #a8e6c5;
+}

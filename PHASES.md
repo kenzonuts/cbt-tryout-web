@@ -77,14 +77,14 @@ Tujuan: uji perilaku “peserta keluar”.
 
 **Selesai jika:** skenario laptop & HP lolos checklist uji.
 
-## Fase E — Mini admin
+## Fase E — Mini admin ✅
 
 Tujuan: buka blokir peserta untuk demo.
 
-- [ ] Halaman `/admin`
-- [ ] Tampilkan status dari localStorage
-- [ ] Tombol Buka Akses → status `in_exam`
-- [ ] Link cepat Login ↔ Admin
+- [x] Halaman `/admin`
+- [x] Tampilkan status dari localStorage
+- [x] Tombol Buka Akses → status `in_exam`
+- [x] Link cepat Login ↔ Admin
 
 **Selesai jika:** setelah blokir, admin unlock, peserta lanjut.
 

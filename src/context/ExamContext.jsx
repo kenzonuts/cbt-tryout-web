@@ -1,5 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { clearState, defaultState, loadState, saveState } from '../utils/storage'
+import {
+  STORAGE_KEY,
+  clearState,
+  defaultState,
+  loadState,
+  saveState,
+} from '../utils/storage'
 
 const WARNING_MS = 15_000
 
@@ -12,6 +18,20 @@ export function ExamProvider({ children }) {
     saveState(state)
   }, [state])
 
+  // Sinkron antar tab (admin unlock di tab lain)
+  useEffect(() => {
+    function onStorage(e) {
+      if (e.key !== STORAGE_KEY || !e.newValue) return
+      try {
+        setState({ ...defaultState, ...JSON.parse(e.newValue) })
+      } catch {
+        // ignore
+      }
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
+
   function setStatus(status) {
     setState((prev) => ({ ...prev, status }))
   }
@@ -20,7 +40,6 @@ export function ExamProvider({ children }) {
     setState((prev) => ({
       ...prev,
       user,
-      // Jangan timpa blocked saat rehydrate login ulang di sesi yang sama
       status: user
         ? prev.status === 'blocked' || prev.status === 'warning'
           ? prev.status
@@ -80,6 +99,15 @@ export function ExamProvider({ children }) {
     })
   }, [])
 
+  const unlockExam = useCallback(() => {
+    setState((prev) => ({
+      ...prev,
+      status: 'in_exam',
+      warningEndsAt: null,
+      warningReason: null,
+    }))
+  }, [])
+
   function resetExam() {
     setState({ ...defaultState })
     clearState()
@@ -95,6 +123,7 @@ export function ExamProvider({ children }) {
     triggerWarning,
     continueExam,
     blockExam,
+    unlockExam,
     resetExam,
   }
 
