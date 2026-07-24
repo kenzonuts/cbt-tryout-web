@@ -14,6 +14,8 @@ export default function WarningModal({
 }) {
   const [seconds, setSeconds] = useState(() => remainingSeconds(endsAt))
   const stoppedRef = useRef(false)
+  const dialogRef = useRef(null)
+  const continueRef = useRef(null)
 
   useEffect(() => {
     if (!open) {
@@ -36,6 +38,46 @@ export default function WarningModal({
     return () => clearInterval(id)
   }, [open, endsAt, onStop])
 
+  useEffect(() => {
+    if (!open) return undefined
+
+    const prev = document.activeElement
+    continueRef.current?.focus()
+
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        // Esc tidak menutup modal — di mode ujian Esc justru memicu warning
+        e.preventDefault()
+        e.stopPropagation()
+        return
+      }
+
+      if (e.key !== 'Tab' || !dialogRef.current) return
+
+      const focusable = dialogRef.current.querySelectorAll(
+        'button:not([disabled])',
+      )
+      if (focusable.length === 0) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown, true)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown, true)
+      if (prev && typeof prev.focus === 'function') prev.focus()
+    }
+  }, [open])
+
   if (!open) return null
 
   const reasonText =
@@ -48,6 +90,7 @@ export default function WarningModal({
   return (
     <div className="modal-overlay" role="presentation">
       <div
+        ref={dialogRef}
         className="modal"
         role="alertdialog"
         aria-modal="true"
@@ -63,7 +106,12 @@ export default function WarningModal({
         </p>
 
         <div className="modal-actions">
-          <button type="button" className="btn" onClick={onContinue}>
+          <button
+            ref={continueRef}
+            type="button"
+            className="btn"
+            onClick={onContinue}
+          >
             Tetap Lanjut
           </button>
           <button type="button" className="btn btn--danger" onClick={onStop}>

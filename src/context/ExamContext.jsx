@@ -63,6 +63,10 @@ export function ExamProvider({ children }) {
     setState((prev) => ({ ...prev, currentQuestionIndex: index }))
   }
 
+  const setDemoMode = useCallback((demoMode) => {
+    setState((prev) => ({ ...prev, demoMode: Boolean(demoMode) }))
+  }, [])
+
   const startExamTimer = useCallback((endsAt) => {
     setState((prev) => ({ ...prev, examEndsAt: endsAt }))
   }, [])
@@ -88,25 +92,33 @@ export function ExamProvider({ children }) {
     }))
   }, [])
 
-  const blockExam = useCallback(() => {
+  const blockExam = useCallback((reason = null) => {
     setState((prev) => {
       if (prev.status === 'blocked') return prev
       return {
         ...prev,
         status: 'blocked',
         warningEndsAt: null,
-        warningReason: null,
+        warningReason: reason ?? prev.warningReason,
       }
     })
   }, [])
 
   const unlockExam = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      status: 'in_exam',
-      warningEndsAt: null,
-      warningReason: null,
-    }))
+    setState((prev) => {
+      const stillTimedOut =
+        prev.examEndsAt && Date.now() >= Number(prev.examEndsAt)
+      return {
+        ...prev,
+        status: 'in_exam',
+        warningEndsAt: null,
+        warningReason: null,
+        // Jika waktu ujian sudah habis, beri sisa 5 menit setelah unlock demo
+        examEndsAt: stillTimedOut
+          ? Date.now() + 5 * 60 * 1000
+          : prev.examEndsAt,
+      }
+    })
   }, [])
 
   function resetExam() {
@@ -120,6 +132,7 @@ export function ExamProvider({ children }) {
     setUser,
     setAnswer,
     setCurrentQuestionIndex,
+    setDemoMode,
     startExamTimer,
     triggerWarning,
     continueExam,

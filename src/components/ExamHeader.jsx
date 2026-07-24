@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function formatTime(totalSeconds) {
   const safe = Math.max(0, totalSeconds)
@@ -7,22 +7,32 @@ function formatTime(totalSeconds) {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
 
-export default function ExamHeader({ name, endsAt }) {
+export default function ExamHeader({ name, endsAt, onExpire }) {
   const [remaining, setRemaining] = useState(() =>
     endsAt ? Math.max(0, Math.ceil((endsAt - Date.now()) / 1000)) : 0,
   )
+  const expiredRef = useRef(false)
+
+  useEffect(() => {
+    expiredRef.current = false
+  }, [endsAt])
 
   useEffect(() => {
     if (!endsAt) return undefined
 
     function tick() {
-      setRemaining(Math.max(0, Math.ceil((endsAt - Date.now()) / 1000)))
+      const left = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000))
+      setRemaining(left)
+      if (left <= 0 && !expiredRef.current) {
+        expiredRef.current = true
+        onExpire?.()
+      }
     }
 
     tick()
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
-  }, [endsAt])
+  }, [endsAt, onExpire])
 
   const urgent = remaining > 0 && remaining <= 60
 

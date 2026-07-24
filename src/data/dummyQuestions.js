@@ -3,6 +3,12 @@ export const DUMMY_CREDENTIALS = {
   password: '1234',
 }
 
+/** PIN admin sederhana untuk demo — bukan keamanan production. */
+export const ADMIN_CREDENTIALS = {
+  username: 'admin',
+  password: 'admin123',
+}
+
 export const dummyQuestions = [
   {
     id: 'q1',
@@ -59,7 +65,10 @@ export const dummyQuestions = [
   {
     id: 'q5',
     number: 5,
-    text: 'Event browser yang menandai tab/halaman tidak terlihat (pindah tab/minimize) adalah…',
+    text:
+      'Dalam skenario Computer Based Test (CBT), peserta diminta tetap fokus pada jendela ujian. ' +
+      'Event browser yang menandai tab atau halaman tidak terlihat — misalnya saat peserta memindah tab, ' +
+      'membuka aplikasi lain, atau menekan tombol Home di perangkat seluler — adalah…',
     options: [
       { key: 'A', label: 'click' },
       { key: 'B', label: 'visibilitychange' },

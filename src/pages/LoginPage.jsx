@@ -95,6 +95,7 @@ export default function LoginPage() {
         </p>
 
         <nav className="nav-links">
+          <Link to="/">Beranda</Link>
           <Link to="/admin">Ke Admin</Link>
         </nav>
       </div>
