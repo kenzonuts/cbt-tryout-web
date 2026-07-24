@@ -100,6 +100,20 @@ Tujuan: rapi, bisa di-demo orang lain.
 
 **Selesai jika:** demo berjalan tanpa penjelasan panjang.
 
+## Fase F+ — MVP polish 10/10 ✅
+
+Detail plan: [`PLAN-MVP-10.md`](./PLAN-MVP-10.md)
+
+- [x] Mode Demo / Lab vs mode ujian bersih
+- [x] Admin PIN sederhana (`admin` / `admin123`)
+- [x] Timer habis → `blocked` (`timeout`)
+- [x] Beranda `/` dengan 3 langkah
+- [x] Mobile responsive + modal focus trap
+- [x] Tips login sekali, banner blocked + CTA
+- [x] Favicon, ESLint, version `0.1.0`, README Known limits
+
+**Selesai jika:** clone → demo 5 menit sesuai README tanpa clutter lab.
+
 ## Checklist uji coba
 
 ### Laptop
